@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+input[type=file]{background-color: gray;border:red 2px dashed;height:50px;vertical-align: middle;}
+</style>
+<title>Project Scanner</title>
+</head>
+
+<body>
+
+
+<input type="file" id="fl" multiple />
+
+
+<div id="results">
+</div>
+
+
+<input type="button" id="tst" value="dev" />
+
+</body>
+
+
+<script type="text/javascript">
+if (!(window.File && window.FileList && window.FileReader))
+{
+	console.log("Sorry, not supported");
+}
+else
+{
+	badWords = [
+		'\u0066\u0075\u0063\u006B',
+		'\u0073\u0068\u0069\u0074',
+		'\u0063\u0075\u006E\u0074',
+		'\u0061\u0073\u0073\u0068\u006F\u006C\u0065',
+		'\u0064\u006F\u0075\u0063\u0068\u0065'];
+
+	fileStrings = [];
+
+	document.getElementById('tst').onclick = function(){
+		
+		var filesArray = [];
+		var	readers = [];
+		for (var i = 0 ; i < document.getElementById('fl').files.length ; i++)
+		{
+			filesArray.push(document.getElementById('fl').files[i]);
+			readers.push(new FileReader());
+			readers[i].onload = readerOnLoad;
+			read(filesArray[i], readers[i]); //O(n); optimize later. Use ready state and onloadend
+		}
+
+	}
+
+	function read(fileRef, readerRef){
+		//use closure to preserve filename
+		readerRef.readAsText(fileRef);
+	}
+
+	function readerOnLoad(file){
+		fileStrings.push(file.target.result);
+	}
+
+}
+</script>
+</html>
