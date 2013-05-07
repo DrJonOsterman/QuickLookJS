@@ -1,23 +1,80 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style type="text/css">
-input[type=file]{background-color: gray;border:red 2px dashed;height:50px;vertical-align: middle;}
+	<style type="text/css">
+	
+html,body {height:99%; width:99%;}
+	
+.topLevel{	
+position: relative;
+width:60%;
+height: 33%;
+border: 2px solid black;
+margin-right: auto;
+margin-left: auto;
+}
+
+input[type=file]{
+position: relative;
+background-color:rgb(252, 105, 105);
+background-image: url('upload.png');
+background-repeat: no-repeat;
+background-position: 50% 50%;
+height:29%;
+width: 99.9%;
+}
+
+#fileListDiv{
+width: 99.9%;
+height:69%;
+background-color:rgb(108, 190, 236);
+}
+
+h2{
+position:absolute;
+text-align: right;
+right:102%;
+z-index: 5;
+}
+
+ #tst{
+position:absolute;
+right:0%;
+bottom:0%;
+}
+
+
+
+table{width: 100%; text-align: left;overflow-y:scroll; }
+th, td {width:33%;}
 </style>
-<title>Project Scanner</title>
+
+	<title>Project Scanner</title>
 </head>
 
 <body>
 
 
-<input type="file" id="fl" multiple />
 
+	<div id="intro" class="topLevel">
+		<h2>Choose your files</h2>
+		<input type="file" id="fl" multiple />
+		<input type="button" id="tst" value="scan" />
+		<div id="fileListDiv">
+<table id='tbl'>
+<tr><th>Name</th> <th>Size (kb)</th> <th>Type</th></tr>
+</table>
 
-<div id="results">
-</div>
+		</div>
+	</div>
 
+	<div id="scan" class="topLevel">
+	<h2>Scan Results</h2>
+	</div>
 
-<input type="button" id="tst" value="dev" />
+	<div id="results" class="topLevel">
+	<h2>Results</h2>
+	</div>
 
 </body>
 
@@ -27,6 +84,7 @@ if (!(window.File && window.FileList && window.FileReader))
 {
 	console.log("Sorry, not supported");
 }
+
 else
 {
 	badWords = [
@@ -51,6 +109,23 @@ else
 		}
 
 	}
+
+document.getElementById('fl').onchange = function(){
+
+	for (var i = 0 ; i < document.getElementById('fl').files.length ; i++)
+	{
+		var tempEl = document.getElementById('tbl').insertRow(-1);
+		tempEl.insertCell(-1).innerHTML = document.getElementById('fl').files[i].name;
+		tempEl.insertCell(-1).innerHTML = document.getElementById('fl').files[i].size / 1000;
+		tempEl.insertCell(-1).innerHTML = document.getElementById('fl').files[i].type;
+
+	}
+
+
+
+
+}
+
 
 	function read(fileRef, readerRef){
 		//use closure to preserve filename
