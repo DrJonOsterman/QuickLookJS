@@ -3,7 +3,7 @@
 <head>
 	<style type="text/css">
 	
-html,body {height:99%; width:99%;}
+html,body {height:99%; width:99%;background-color:rgb(250,250,250);}
 	
 .topLevel{	
 position: relative;
@@ -20,14 +20,15 @@ background-color:rgb(252, 105, 105);
 background-image: url('upload.png');
 background-repeat: no-repeat;
 background-position: 50% 50%;
-height:29%;
+height:99%;
 width: 99.9%;
 }
 
 #fileListDiv{
 width: 99.9%;
-height:69%;
+height:80%;
 background-color:rgb(108, 190, 236);
+overflow-y:scroll;
 }
 
 h2{
@@ -35,18 +36,22 @@ position:absolute;
 text-align: right;
 right:102%;
 z-index: 5;
+color:black;
 }
 
- #tst{
-position:absolute;
-right:0%;
-bottom:0%;
-}
+#results{overflow-y:scroll;}
+
+ #tst{position:absolute;right:0%;bottom:0%;}
 
 
 
-table{width: 100%; text-align: left;overflow-y:scroll; }
+table{width: 100%; text-align: left;}
 th, td {width:33%;}
+td{
+border:1px black solid;
+border-right:hidden;
+}
+
 </style>
 
 	<title>Project Scanner</title>
@@ -55,87 +60,26 @@ th, td {width:33%;}
 <body>
 
 
-
 	<div id="intro" class="topLevel">
 		<h2>Choose your files</h2>
 		<input type="file" id="fl" multiple />
 		<input type="button" id="tst" value="scan" />
-		<div id="fileListDiv">
-<table id='tbl'>
-<tr><th>Name</th> <th>Size (kb)</th> <th>Type</th></tr>
-</table>
 
-		</div>
 	</div>
 
 	<div id="scan" class="topLevel">
-	<h2>Scan Results</h2>
+		<h2>Scan Progress</h2>
+				<div id="fileListDiv">
+			<table id='tbl'>
+				<tr><th>Name</th> <th>Size (kb)</th> <th>Type</th></tr>
+			</table>
+		</div>
 	</div>
 
 	<div id="results" class="topLevel">
-	<h2>Results</h2>
+		<h2>Results</h2>
 	</div>
 
 </body>
-
-
-<script type="text/javascript">
-if (!(window.File && window.FileList && window.FileReader))
-{
-	console.log("Sorry, not supported");
-}
-
-else
-{
-	badWords = [
-		'\u0066\u0075\u0063\u006B',
-		'\u0073\u0068\u0069\u0074',
-		'\u0063\u0075\u006E\u0074',
-		'\u0061\u0073\u0073\u0068\u006F\u006C\u0065',
-		'\u0064\u006F\u0075\u0063\u0068\u0065'];
-
-	fileStrings = [];
-
-	document.getElementById('tst').onclick = function(){
-		
-		var filesArray = [];
-		var	readers = [];
-		for (var i = 0 ; i < document.getElementById('fl').files.length ; i++)
-		{
-			filesArray.push(document.getElementById('fl').files[i]);
-			readers.push(new FileReader());
-			readers[i].onload = readerOnLoad;
-			read(filesArray[i], readers[i]); //O(n); optimize later. Use ready state and onloadend
-		}
-
-	}
-
-document.getElementById('fl').onchange = function(){
-
-	for (var i = 0 ; i < document.getElementById('fl').files.length ; i++)
-	{
-		var tempEl = document.getElementById('tbl').insertRow(-1);
-		tempEl.insertCell(-1).innerHTML = document.getElementById('fl').files[i].name;
-		tempEl.insertCell(-1).innerHTML = document.getElementById('fl').files[i].size / 1000;
-		tempEl.insertCell(-1).innerHTML = document.getElementById('fl').files[i].type;
-
-	}
-
-
-
-
-}
-
-
-	function read(fileRef, readerRef){
-		//use closure to preserve filename
-		readerRef.readAsText(fileRef);
-	}
-
-	function readerOnLoad(file){
-		fileStrings.push(file.target.result);
-	}
-
-}
-</script>
+	<script type="text/javascript" src="quickLook2.js"></script>
 </html>
