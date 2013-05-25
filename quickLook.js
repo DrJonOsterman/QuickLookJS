@@ -1,82 +1,96 @@
-if (!(window.File && window.FileList && window.FileReader))
-{
-	console.log("Sorry, not supported");
+// var QL_inputObj = {
+// 	inputFileElementId: 'inputFileId',
+// 	beginButtonId: 'btnStart',
+// 	outputId: 'resultsDiv',
+// 	customBadWords : []
+// }
+
+
+var quickLook = function(inputEl, outputEl, btnElem, customFlags, tableEl){
+var reader =  null;
+var files = [];
+var filenames = [];
+var fileStrings = [];
+var inputElem = null;
+var outputElem = null;
+var customWords = null;
+var badWords = [
+		'\u0066\u0075\u0063\u006B', '\u0073\u0068\u0069\u0074', '\u0061\u0073\u0073\u0068\u006F\u006C\u0065', '\u0064\u006F\u0075\u0063\u0068\u0065'];
+
+
+function setUp(){
+	if 	(!(window.File && window.FileList && window.FileReader))
+	{
+		return "Sorry, your browser does not support the necessary features.";
+	}
+
+	else
+	{
+		inputElem = document.getElementById(inputEl);
+		outputElem = document.getElementById(outputEl);
+		document.getElementById(btnElem).onclick = btnOnClick;
+		customWords = ((!customFlags === undefined) && (typeof customFlags === Array)) ? customFlags : null ;
+		if (tableEl !== undefined)
+		{
+			inputElem.onchange = redrawTable;
+		}
+		reader = new FileReader();
+		reader.onload = readerOnLoad;
+	}
 }
 
-else
-{
+function  btnOnClick(){
+	for (var i = 0; i < inputElem.files.length ; i++) 
+		{
+			files.push(inputElem.files[i]);
+			filenames[i] = files[i].name;
+		}
+	reader.readAsText(files[0]);
+}
 
-
-var id = function(elemId){return document.getElementById(elemId);};//alias function for shorter code
-
-	var badWords = [
-		'\u0066\u0075\u0063\u006B',
-		'\u0073\u0068\u0069\u0074',
-		'\u0063\u0075\u006E\u0074',
-		'\u0061\u0073\u0073\u0068\u006F\u006C\u0065',
-		'\u0064\u006F\u0075\u0063\u0068\u0065'];
-
-	var files = [];
-	var filenames = [];
-	var strings = [];
-	var reader = new FileReader();
-	reader.onload = readerOnLoad;
-
-	id('tst').onclick = function(){
-		for (var i = 0; i < id('fl').files.length ; i++) 
-			{
-				files.push(id('fl').files[i]);
-				filenames[i] = files[i].name;
-			}
+ function readerOnLoad(file){
+	fileStrings.push(file.target.result);
+	if ((reader.readyState === 2) && (files.length > 0))
+	{
+		files.splice(0,1);
 		reader.readAsText(files[0]);
 	}
-
-	function readerOnLoad(file){
-		strings.push(file.target.result);
-		if ((reader.readyState === 2) && (files.length > 0))
-		{
-			files.splice(0,1);
-			reader.readAsText(files[0]);
-		}
-		if ((reader.readyState === 2) && (files.length === 0))
-		{
-			scanStuff();
-		}
-	}
-
-
-	function scanStuff()
+	if ((reader.readyState === 2) && (files.length === 0))
 	{
-		strings.forEach(function(fileText, index)
-		{
-			badWords.forEach(function(word)
-			{
-				if (fileText.indexOf(word) > -1)
-				{
-					id('results').innerHTML += '<br /><b>' + word + '</b> found in ' + filenames[index] + '.';
-				}
-				else
-				{
-					id('results').innerHTML += '<br />' + filenames[index] + ' is clean of ' + word + '.';
-				}
-			});
-		});
+		scanStuff();
 	}
-
-
-	function printResult(){}
-
-
-	id('fl').onchange = function(){
-		for (var i = 0 ; i < id('fl').files.length ; i++)
-		{
-			var tempEl = id('tbl').insertRow(-1);
-			tempEl.insertCell(-1).innerHTML = id('fl').files[i].name;
-			tempEl.insertCell(-1).innerHTML = id('fl').files[i].size / 1000;
-			tempEl.insertCell(-1).innerHTML = id('fl').files[i].type;
-		}
-	}
-
-
-
 }
+
+function redrawTable(){
+	for (var i = 0 ; i < inputElem.files.length ; i++)
+	{
+		var tempEl = document.getElementById(tableEl).insertRow(-1);
+		tempEl.insertCell(-1).innerHTML = inputElem.files[i].name;
+		tempEl.insertCell(-1).innerHTML = inputElem.files[i].size / 1000;
+		tempEl.insertCell(-1).innerHTML = inputElem.files[i].type;
+	}
+}
+
+function scanStuff()
+{
+	fileStrings.forEach(function(fileText, index)
+	{
+		badWords.forEach(function(word)
+		{
+			if (fileText.indexOf(word) > -1)
+			{
+				outputElem.innerHTML += '<br /><b>' + word + '</b> found in ' + filenames[index] + '.';
+			}
+			else
+			{
+				outputElem.innerHTML += '<br />' + filenames[index] + ' is clean of ' + word + '.';
+			}
+		});
+	});
+}
+
+setUp();
+}
+
+
+quickLook('fl', 'results', 'tst', undefined, 'tbl');
