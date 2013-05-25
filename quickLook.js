@@ -1,12 +1,5 @@
-// var QL_inputObj = {
-// 	inputFileElementId: 'inputFileId',
-// 	beginButtonId: 'btnStart',
-// 	outputId: 'resultsDiv',
-// 	customBadWords : []
-// }
-
-
 var quickLook = function(inputEl, outputEl, btnElem, customFlags, tableEl){
+
 var reader =  null;
 var files = [];
 var filenames = [];
@@ -16,7 +9,6 @@ var outputElem = null;
 var customWords = null;
 var badWords = [
 		'\u0066\u0075\u0063\u006B', '\u0073\u0068\u0069\u0074', '\u0061\u0073\u0073\u0068\u006F\u006C\u0065', '\u0064\u006F\u0075\u0063\u0068\u0065'];
-
 
 function setUp(){
 	if 	(!(window.File && window.FileList && window.FileReader))
@@ -91,6 +83,4 @@ function scanStuff()
 
 setUp();
 }
-
-
 quickLook('fl', 'results', 'tst', undefined, 'tbl');
