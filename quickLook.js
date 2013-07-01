@@ -65,10 +65,13 @@ function redrawTable(){
 
 function scanStuff()
 {
+	//String.split by by new lines
+	//this makes each aray index a line number
 	fileStrings.forEach(function(fileText, index)
 	{
 		badWords.forEach(function(word)
 		{
+
 			if (fileText.indexOf(word) > -1)
 			{
 				outputElem.innerHTML += '<br /><b>' + word + '</b> found in ' + filenames[index] + '.';
@@ -83,4 +86,5 @@ function scanStuff()
 
 setUp();
 }
+
 quickLook('fl', 'results', 'tst', undefined, 'tbl');
