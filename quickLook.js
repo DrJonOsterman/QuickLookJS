@@ -4,7 +4,7 @@ var qlObj = {
 	inputEl : document.getElementById('fl'),
 	outputEl: document.getElementById('resultBox'),
 	btnEl: document.getElementById('tst'),
-	customTerms: undefined,
+	customTerms: ['Claim'],
 	tableEl: document.getElementById('tbl')
 };
 
@@ -34,8 +34,6 @@ var qlObj = {
 		else
 		{
 			o.btnEl.onclick = btnOnClick;
-
-			badWords = ((!o.customTerms === undefined) && (typeof o.customTerms === Array)) ? Array.prototype.apply(badWords, o.customTerms) : badWords;
 			if (o.tableEl !== undefined)
 			{
 				o.inputEl.onchange = redrawTable;
@@ -79,6 +77,55 @@ var qlObj = {
 		}
 	}
 
+
+     function print(message, fileName, lineNumber, word){
+          var tempStr;
+          if (message == 'found')
+          {
+               tempStr = fileName + ': <b>' + word + '</b> found on line ' + lineNumber;
+          }
+          else if (message == 'clean')
+          {
+               tempStr = fileName + ' is clean'
+          }
+          o.outputEl.innerHTML += '<span class="result">' + tempStr + '.</span>';
+     }
+
+
+// Should I document this function? It looks like hell. okay
+//  __________________________________________________________
+// |forEach file                                              |
+// |    var fileText, fileIndex                               |
+// |    isFileClean = true                                    |
+// |      __________________________________________          |
+// |     |forEach line                              |         |
+// |     |    var lineContent, lineNumber           |         |
+// |     |     ________________________________     |         |
+// |     |    |forEach badWord                 |    |         |
+// |     |    |      var word                  |    |         |
+// |     |    |      if line.contains(word)    |    |         |
+// |     |    |           print(match found)   |    |         |
+// |     |    |           isFileClean = false  |    |         |
+// |     |    |      end if                    |    |         |
+// |     |    | end badWord-forEach            |    |         |
+// |     |     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯     |         |
+// |     |     if customWords == true               |         |
+// |     |          ____________________________    |         |
+// |     |         | forEach customWord          |  |         |
+// |     |         |      if line.contains(word) |  |         |
+// |     |         |      print(match found)     |  |         |
+// |     |         |      isFileClean - false    |  |         |
+// |     |         | end customWord-forEach      |  |         |
+// |     |          ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯    |         |
+// |     |     end if                               |         |
+// |     |end line-forEach                          |         |
+// |      ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯          |
+// |     if (isFileClean == true)                             |
+// |          print(clean)                                    |
+// |     end if                                               |
+// |end file-forEach                                          |
+//  ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+
 	function scanStuff()
 	{
 		fileStrings.forEach(function(fileText, index)
@@ -90,13 +137,24 @@ var qlObj = {
 				{
 					if (line.indexOf(decode(word) +' ') > -1)
 					{
-						o.outputEl.innerHTML += '<span class="result">' + filenames[index] + ": <b>" + decode(word) + "</b> found in line " + (lineNum + 1)+ ".</span>"; 
-						isClean = false;
+						print('found', filenames[index], lineNum + 1, decode(word));
+                              isClean = false;
 					}
 				});
 
+                    if((o.customTerms !== undefined) && o.customTerms.hasOwnProperty('length'))
+                    {
+                         o.customTerms.forEach(function(customWord)
+                         {
+                              if (line.indexOf(customWord + ' ') > -1)
+                              {
+                                   print('found', filenames[index], lineNum + 1, customWord);
+                                   isClean = false;
+                              }
+                         });
+                    }
 			});
-			o.outputEl.innerHTML +=  (isClean == true) ? '<span class="result">' + filenames[index] + ' is clean.' + "</span>" : '';
+               if (isClean == true) {print("clean", fileNames[index]);}
 		});
 	}
 })(qlObj);
