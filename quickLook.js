@@ -1,13 +1,12 @@
 
-var qlObj = {
+var quickLookObject = {
 
 	inputEl : document.getElementById('fl'),
 	outputEl: document.getElementById('resultBox'),
 	btnEl: document.getElementById('tst'),
-	customTerms: ['Claim'],
+	customTerms: undefined,
 	tableEl: document.getElementById('tbl')
 };
-
 
 (function(o){
 
@@ -43,7 +42,7 @@ var qlObj = {
 		}
 	}
 
-	function  btnOnClick(){
+	function btnOnClick(){
 		for (var i = 0; i < o.inputEl.files.length ; i++) 
 			{
 				files.push(o.inputEl.files[i]);
@@ -77,22 +76,20 @@ var qlObj = {
 		}
 	}
 
+    function print(message, fileName, lineNumber, word){
+        var tempStr;
+        if (message == 'found')
+        {
+            tempStr = fileName + ': <b>' + word + '</b> found on line ' + lineNumber;
+        }
+        else if (message == 'clean')
+        {
+            tempStr = fileName + ' is clean'
+        }
+        o.outputEl.innerHTML += '<span class="result">' + tempStr + '.</span>';
+    }
 
-     function print(message, fileName, lineNumber, word){
-          var tempStr;
-          if (message == 'found')
-          {
-               tempStr = fileName + ': <b>' + word + '</b> found on line ' + lineNumber;
-          }
-          else if (message == 'clean')
-          {
-               tempStr = fileName + ' is clean'
-          }
-          o.outputEl.innerHTML += '<span class="result">' + tempStr + '.</span>';
-     }
-
-
-// Should I document this function? It looks like hell. okay
+// Should I document this function pesudocode? It looks like hell. okay
 //  __________________________________________________________
 // |forEach file                                              |
 // |    var fileText, fileIndex                               |
@@ -125,7 +122,6 @@ var qlObj = {
 // |     end if                                               |
 // |end file-forEach                                          |
 //  ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-
 	function scanStuff()
 	{
 		fileStrings.forEach(function(fileText, index)
@@ -142,19 +138,19 @@ var qlObj = {
 					}
 				});
 
-                    if((o.customTerms !== undefined) && o.customTerms.hasOwnProperty('length'))
+                if((o.customTerms !== undefined) && o.customTerms.hasOwnProperty('length'))
+                {
+                    o.customTerms.forEach(function(customWord)
                     {
-                         o.customTerms.forEach(function(customWord)
-                         {
-                              if (line.indexOf(customWord + ' ') > -1)
-                              {
-                                   print('found', filenames[index], lineNum + 1, customWord);
-                                   isClean = false;
-                              }
-                         });
-                    }
+                        if (line.indexOf(customWord + ' ') > -1)
+                        {
+                            print('found', filenames[index], lineNum + 1, customWord);
+                            isClean = false;
+                        }
+                    });
+                }
 			});
-               if (isClean == true) {print("clean", fileNames[index]);}
+               if (isClean == true) {print("clean", filenames[index]);}
 		});
 	}
-})(qlObj);
+})(quickLookObject);
