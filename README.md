@@ -8,12 +8,24 @@ Script scans selected files for objectionable words that one may not wish to sub
 
 ## Use ##
 
-`quickLook(inputEl, outputEl, btnElem, customFlags, tableEl)`
+It's a self-executing function which takes an object with the following properties.
 
-Parameters are 
+	var qlObj = {
+		inputEl : document.getElementById('fl'),
+		outputEl: document.getElementById('resultBox'),
+		btnEl: document.getElementById('tst'),
+		customTerms: undefined,
+		tableEl: document.getElementById('tbl')
+	};
+###Properties###
+ + `inputEl` - __reference__ to ``input`` element. with ``type`` attribute being ``file``.
 
-+ `inputEl` - id attribute value of the file input element.
-+ `outputEl` - id attribute value of an element to contain output text.
-+ `btnElem` - id attribute value of 
-+ `customFlags` - __optional__ array of custom words you may 
-+ `tableEl` -  __optional__ id attribute to empty table 
+ + `outputEl` - __reference__ to element which can accept output, through ``innerHTML``
+
+ + `btnEl` - __reference__ to button user will click to begin scanning
+
+ + `customTerms` - __optional__,  __array__ of custom words you want additionally check your files against. 
+
+ + `tableEl` -  __optional__, __reference__ to empty table, which will display file info upon selection via file upload.
+
+
