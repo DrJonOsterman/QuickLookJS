@@ -113,32 +113,32 @@ var quickLookObject = {//sample object
 })(quickLookObject);
 
 /*Should I document the scanStuff function? It looks kind of convoluted
- __________________________________________________________
-|forEach file have fileText, fileIndex                     |
-|     var isFileClean = true                               |
-|      __________________________________________          |
-|     |forEach line have lineContent, lineNumber |         |
-|     |     ________________________________     |         |
-|     |    |forEach badWord have word       |    |         |
-|     |    |      if line.contains(word)    |    |         |
-|     |    |           print('match found') |    |         |
-|     |    |           isFileClean = false  |    |         |
-|     |    |      end if                    |    |         |
-|     |    | end badWord-forEach            |    |         |
-|     |     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯     |         |
-|     |     if customWords == true               |         |
-|     |          ____________________________    |         |
-|     |         |forEach customWord have Uword|  |         |
-|     |         |      if line.contains(Uword)|  |         |
-|     |         |      print('match found')   |  |         |
-|     |         |      isFileClean - false    |  |         |
-|     |         | end customWord-forEach      |  |         |
-|     |          ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯    |         |
-|     |     end if                               |         |
-|     |end line-forEach                          |         |
-|      ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯          |
-|     if (isFileClean == true)                             |
-|          print('clean')                                  |
-|     end if                                               |
-|end file-forEach                                          |
+ ___________________________________________________________
+|forEach file |fileText, fileIndex|                         |
+|     var isFileClean = true                                |
+|      ______________________________________________       |
+|     |forEach line |lineContent, lineNumber|        |      |
+|     |     ________________________________         |      |
+|     |    |forEach badWord |word|          |        |      |
+|     |    |    if lineContent.contains(word)        |      |
+|     |    |           print('match found') |        |      |
+|     |    |           isFileClean = false  |        |      |
+|     |    |      end if                    |        |      |
+|     |    | end badWord-forEach            |        |      |
+|     |      ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯        |      |
+|     |    if customWords == true                    \      |
+|     |         ____________________________________  |     |
+|     |        |forEach customWord |Uword|          | |     |
+|     |        |      if lineContent.contains(Uword)| |     |
+|     |        |      print('match found')          | |     |
+|     |        |      isFileClean - false           | |     |
+|     |        | end customWord-forEach             | |     |
+|     |         ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯  |     |
+|     |    end if                                     |     |
+|     |end line-forEach                               |     |
+|      ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯      |
+|     if (isFileClean == true)                              |
+|          print('clean')                                   |
+|     end if                                                |
+|end file-forEach                                           |
  ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*/
