@@ -113,32 +113,33 @@ var quickLookObject = {//sample object
 })(quickLookObject);
 
 /*Should I document the scanStuff function? It looks kind of convoluted
- ___________________________________________________________
-|forEach file |fileText, fileIndex|                         |
-|     var isFileClean = true                                |
-|      ______________________________________________       |
-|     |forEach line |lineContent, lineNumber|        |      |
-|     |     ________________________________         |      |
-|     |    |forEach badWord |word|          |        |      |
-|     |    |    if lineContent.contains(word)        |      |
-|     |    |           print('match found') |        |      |
-|     |    |           isFileClean = false  |        |      |
-|     |    |      end if                    |        |      |
-|     |    | end badWord-forEach            |        |      |
-|     |      ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯        |      |
-|     |    if customWords == true                    \      |
-|     |         ____________________________________  |     |
-|     |        |forEach customWord |Uword|          | |     |
-|     |        |      if lineContent.contains(Uword)| |     |
-|     |        |      print('match found')          | |     |
-|     |        |      isFileClean - false           | |     |
-|     |        | end customWord-forEach             | |     |
-|     |         ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯  |     |
-|     |    end if                                     |     |
-|     |end line-forEach                               |     |
-|      ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯      |
-|     if (isFileClean == true)                              |
-|          print('clean')                                   |
-|     end if                                                |
-|end file-forEach                                           |
- ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*/
+ __________________________________________________________
+|forEach file |fileText, fileIndex|                        |
+|     var isFileClean = true                               |
+|      ______________________________________________      |
+|     |forEach line |lineContent, lineNumber|        |     |
+|     |     _________________________________        |     |
+|     |    |forEach badWord |word|           |       |     |
+|     |    |    if lineContent.contains(word)|       |     |
+|     |    |           print('match found')  |       |     |
+|     |    |           isFileClean = false   |       |     |
+|     |    |      end if                     |       |     |
+|     |    |end forEach                      |       |     |
+|     |     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯        |     |
+|     |    if customWords NOT empty                  |     |
+|     |         ___________________________________  |     |
+|     |        |forEach customWord |Uword|         | |     |
+|     |        |    if lineContent.contains(Uword) | |     |
+|     |        |        print('match found')       | |     |
+|     |        |        isFileClean = false        | |     |
+|     |        |    end if                         | |     |
+|     |        |end forEach                        | |     |
+|     |         ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯  |     |
+|     |    end if                                    |     |
+|     |end forEach                                   |     |
+|      ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯      |
+|     if isFileClean IS true                               |
+|          print('file clean')                             |
+|     end if                                               |
+|end forEach                                               |
+ ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*/
