@@ -1,5 +1,4 @@
 var quickLookObject = {//sample object
-
 	inputEl : document.getElementById('fl'),
 	outputEl: document.getElementById('resultBox'),
 	btnEl: document.getElementById('tst'),
@@ -41,22 +40,23 @@ var quickLookObject = {//sample object
 
 	function btnOnClick(){
 		for (var i = 0; i < o.inputEl.files.length ; i++) 
-			{
-				files.push(o.inputEl.files[i]);
-				filenames[i] = files[i].name;
-			}
+		{
+			files.push(o.inputEl.files[i]);
+			filenames[i] = files[i].name;
+		}
 		reader.readAsText(files[0]);
 	}
 
 	function readerOnLoad(file){
 		fileStrings.push(file.target.result);
-		if ((reader.readyState === 2) && (files.length > 0))
+		if ((reader.readyState === 2) && (files.length > 1))
 		{
 			files.splice(0,1);
 			reader.readAsText(files[0]);
 		}
-		if ((reader.readyState === 2) && (files.length === 0))
+		if ((reader.readyState === 2) && (files.length === 1))
 		{
+			files.splice(0,1);
 			scanStuff();
 		}
 	}
@@ -94,7 +94,7 @@ var quickLookObject = {//sample object
 					}
 				});
 
-				if((o.customTerms !== undefined) && o.customTerms.hasOwnProperty('length'))
+				if ((o.customTerms !== undefined) && o.customTerms.hasOwnProperty('length'))
 				{
 					o.customTerms.forEach(function(customWord)
 					{
