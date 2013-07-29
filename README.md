@@ -24,9 +24,9 @@ It's a self-executing function which takes an object with the following properti
  - `tableEl` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-  __optional__, __reference__ to empty table, which will display file info upon selection via file upload.
 
 ## Notes ##
- - Reference of bad words used from ___[shutterstock - List of Dirty Naughty Obscene and Otherwise Bad Words](https://github.com/shutterstock/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words)___ repository.
+ ###Reference of bad words used from ___[shutterstock - List of Dirty Naughty Obscene and Otherwise Bad Words](https://github.com/shutterstock/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words)___ repository.###
 
-##Documentation for scan function##
+###Documentation for scan function###
      __________________________________________________________
     |forEach file |fileText, fileIndex|                        |
     |     var isFileClean = true                               |
