@@ -1,10 +1,10 @@
-var quickLookObject = {//sample object
+var quickLookObject = {//set up here
 	inputEl : document.getElementById('fl'),
 	outputEl: document.getElementById('resultBox'),
 	btnEl: document.getElementById('tst'),
 	customTerms: undefined,
 	tableEl: document.getElementById('tbl')
-}; //end sample object
+};
 (function(o){
 
 	var reader =  null;
@@ -111,35 +111,3 @@ var quickLookObject = {//sample object
 	}
 	setUp();
 })(quickLookObject);
-
-/*Should I document the scanStuff function? It looks kind of convoluted
- __________________________________________________________
-|forEach file |fileText, fileIndex|                        |
-|     var isFileClean = true                               |
-|      ______________________________________________      |
-|     |forEach line |lineContent, lineNumber|        |     |
-|     |     _________________________________        |     |
-|     |    |forEach badWord |word|           |       |     |
-|     |    |    if lineContent.contains(word)|       |     |
-|     |    |           print('match found')  |       |     |
-|     |    |           isFileClean = false   |       |     |
-|     |    |      end if                     |       |     |
-|     |    |end forEach                      |       |     |
-|     |     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯        |     |
-|     |    if customWords NOT empty                  |     |
-|     |         ___________________________________  |     |
-|     |        |forEach customWord |Uword|         | |     |
-|     |        |    if lineContent.contains(Uword) | |     |
-|     |        |        print('match found')       | |     |
-|     |        |        isFileClean = false        | |     |
-|     |        |    end if                         | |     |
-|     |        |end forEach                        | |     |
-|     |         ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯  |     |
-|     |    end if                                    |     |
-|     |end forEach                                   |     |
-|      ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯      |
-|     if isFileClean IS true                               |
-|          print('file clean')                             |
-|     end if                                               |
-|end forEach                                               |
- ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*/
